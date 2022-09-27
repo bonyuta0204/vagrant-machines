@@ -1,0 +1,19 @@
+  - name: check aws-cli is installed
+    stat:
+      path: /usr/local/bin/aws
+    register: st
+
+  - name: get aws-cli installer
+    unarchive:
+      src: https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip
+      dest: /tmp/
+      remote_src: yes
+    become: true
+    when: st.stat.exists == False
+
+
+  - name: run aws-cli installer
+    command:
+      cmd: /tmp/aws/install
+    become: true
+    when: st.stat.exists == False
