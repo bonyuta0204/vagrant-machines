@@ -1,0 +1,8 @@
+packages:
+- git
+- vim
+- tmux
+- tig
+- make
+- ruby
+- python3

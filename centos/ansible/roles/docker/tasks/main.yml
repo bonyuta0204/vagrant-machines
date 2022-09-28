@@ -1,0 +1,31 @@
+---
+- name: Add docker repository
+  get_url:
+    url: https://download.docker.com/linux/centos/docker-ce.repo
+    dest: /etc/yum.repos.d/
+  become: yes
+
+- name: Add docker packages
+  yum:
+    name: 
+      - docker-ce
+      - docker-ce-cli
+      - containerd.io
+      - docker-compose-plugin
+    state: present
+    update_cache: no
+  become: yes
+
+- name: Add user to docker group
+  user:
+    name: "{{ ansible_env.USER }}"
+    groups: docker
+    append: yes
+  become: yes
+
+- name: Ensure docker service is enabled
+  systemd:
+    name: docker
+    state: started
+    enabled: yes
+  become: yes
