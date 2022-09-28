@@ -1,0 +1,5 @@
+  - name: install aws-mfa
+    pip:
+      name: aws-mfa
+      executable: pip3
+      extra_args: --user
